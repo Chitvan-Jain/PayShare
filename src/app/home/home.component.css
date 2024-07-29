@@ -1,0 +1,127 @@
+
+html {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    background-color: #fefdfc;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .nav {
+    top: 0;
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .left {
+    padding: 0.5rem 0rem 0.5rem 3rem;
+    display: flex;
+  }
+  
+  .left img {
+    height: 40px;
+    width: auto;
+    margin-right: 1rem;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  .left p {
+    margin: auto 0;
+    font-size: 1.8rem;
+    color: #e34432;
+    font-weight: bolder;
+    font-family: "Ubuntu", sans-serif;
+  }
+  
+  .right {
+    align-content: center;
+    padding: 0.5rem 3rem 0.5rem 0rem;
+  }
+  
+  .right a {
+    margin: auto 0rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 1.1rem;
+    color: #25221e;
+    font-weight: 450;
+    font-family: "Ubuntu", sans-serif;
+    text-decoration: none;
+    border-radius: 1rem;
+  }
+  
+  .right a:hover {
+    color: #000000;
+    background-color: #ececec;
+  }
+  
+  .right span {
+    border-left: gray 1.5px solid;
+    margin: auto 1rem;
+  }
+  
+  .right a:last-of-type {
+    padding: 1rem;
+    background-color: #e34432;
+    color: #fefdfc;
+    
+    font-weight:bolder;
+    font-size:larger;
+  }
+  
+  .right a:last-of-type:hover {
+    background-color: #d63422;
+  }
+  
+  .right a:nth-last-of-type(2){
+    margin-right: 0.4rem;
+  }
+  
+  
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 5rem); /* Subtract the height of the nav bar */
+    text-align: center;
+  }
+  
+  .hero p {
+    font-family: "Ubuntu", sans-serif;
+  }
+  
+  .hero p span {
+    margin-bottom: 3rem;
+  }
+  
+  .title {
+    color: #25221e;
+    font-size: 5rem;
+    font-weight: bolder;
+    line-height: 5rem;
+  }
+  
+  .sub-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: gray;
+  }
+  
+  .signup-btn {
+    padding: 1.3rem 1.7rem;
+    background-color: #e34432;
+    color: #fefdfc;
+    border-radius: 1.2rem;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 1.3rem;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 1.5rem;
+  }
+  

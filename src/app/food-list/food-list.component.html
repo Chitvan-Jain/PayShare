@@ -1,0 +1,167 @@
+<div class="container">
+    <div class="nav">
+      <img src="assets/images/logo.svg" />
+      <p>PayShare</p>
+    </div>
+  
+    <div class="overlay" [class.hidden]="isRemoved"></div>
+    <div class="modal-remove" [class.hidden]="isRemoved">
+      <div class="input-fields flex flex-col">
+        <div class="mb-2 flex justify-between">
+          <label for="taxPercentage">Tax(%):</label>
+          <input
+            type="number"
+            id="taxPercentage"
+            [(ngModel)]="taxPercentage"
+            placeholder="Enter tax %"
+            class="border-2 border-black rounded-lg p-0.5 ml-2"
+          />
+        </div>
+        <div class="mb-2 flex justify-between">
+          <label for="serviceChargePercentage">Service Charge(%):</label>
+          <input
+            type="number"
+            id="serviceChargePercentage"
+            [(ngModel)]="serviceChargePercentage"
+            placeholder="Enter service charge %"
+            class="border-2 border-black rounded-lg p-0.5 ml-2"
+          />
+        </div>
+      </div>
+      <div class="submit-btn">
+        <button
+          class="bg-[#e34432] text-white px-4 py-2 text-2xl font-semibold rounded-xl"
+          (click)="submitPercentages()"
+          [disabled]="!taxPercentage || !serviceChargePercentage"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  
+    <div class="flex justify-evenly w-full p-4">
+        <div class="w-1/3 pr-2">
+            <div class="mb-4">
+              <label for="foodName" class="block text-lg font-medium text-gray-700">Food Name:</label>
+              <input
+                type="text"
+                id="foodName"
+                [(ngModel)]="foodName"
+                placeholder="Enter food name"
+                class="border border-gray-300 rounded-lg p-2 mt-1 block w-full"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="quantity" class="block text-lg font-medium text-gray-700">Quantity:</label>
+              <input
+                type="number"
+                id="quantity"
+                [(ngModel)]="quantity"
+                placeholder="Enter quantity"
+                class="border border-gray-300 rounded-lg p-2 mt-1 block w-full"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="price" class="block text-lg font-medium text-gray-700">Price:</label>
+              <input
+                type="number"
+                id="price"
+                [(ngModel)]="price"
+                placeholder="Enter price"
+                class="border border-gray-300 rounded-lg p-2 mt-1 block w-full"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="payer" class="block text-lg font-medium text-gray-700">Who Paid:</label>
+              <select
+                id="payer"
+                [(ngModel)]="payer"
+                class="border border-gray-300 rounded-lg p-2 mt-1 block w-full"
+              >
+                <option *ngFor="let person of people" [value]="person">
+                  {{ person }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <p class="block text-lg font-medium text-gray-700">People:</p>
+              <div *ngFor="let person of people" class="flex items-center mb-2">
+                <input
+                  type="checkbox"
+                  [value]="person"
+                  (change)="togglePersonSelection($event, person)"
+                  class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+                <label class="ml-2 text-lg text-gray-700">{{ person }}</label>
+              </div>
+            </div>
+            <div class="submit-btn">
+              <button
+                class="bg-[#e34432] text-white px-4 py-2 text-2xl font-semibold rounded-xl w-full"
+                (click)="addFoodItem()"
+              >
+                Add Item
+              </button>
+            </div>
+          </div>
+          
+  
+      <div class="w-1/3 pl-2">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="border p-2">Quantity</th>
+              <th class="border p-2">Food Name</th>
+              <th class="border p-2">Price</th>
+              <th class="border p-2">Price + Tax</th>
+              <th class="border p-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of foodItems; let i = index" class="odd:bg-white even:bg-gray-100">
+              <td class="border p-2">{{ item.quantity }}</td>
+              <td class="border p-2">{{ item.foodName }}</td>
+              <td class="border p-2">{{ item.price }}</td>
+              <td class="border p-2">{{ calculatePriceWithTax(calculateTotalPrice(item.price, item.quantity)).toFixed(2) }}</td>
+              <td class="border p-2">
+                <button class=" w-full bg-red-500 text-white px-2 py-1 rounded" (click)="removeFoodItem(i)">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mt-4 p-4 bg-gray-100 rounded">
+          <p class="font-bold">Total Amount: {{ calculateTotalAmount().toFixed(2) }}</p>
+          <p class="font-bold">Service Charge: {{ calculateServiceCharge(calculateTotalAmount()).toFixed(2) }}</p>
+          <p class="font-bold">Final Amount: {{ calculateFinalAmount().toFixed(2) }}</p>
+        </div>
+        <div class="submit-btn mt-4">
+          <button
+            class="bg-[#e34432] text-white px-4 py-2 text-2xl font-semibold rounded-xl w-full"
+            (click)="payShare()"
+          >
+            PayShare
+          </button>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="overlay" [class.hidden]="!isEvaluate"></div>
+    <div class="modal-remove" [class.hidden]="!isEvaluate">
+      <div class="modal-content p-4">
+        <h2 class="text-2xl font-bold mb-4">Balance Sheet</h2>
+        <pre>{{ balanceSheet }}</pre>
+        <button
+          class="bg-[#e34432] text-white px-4 py-2 text-xl font-semibold rounded-xl mt-4"
+          (click)="closeModal()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+
+    
+    
+  </div>
+  

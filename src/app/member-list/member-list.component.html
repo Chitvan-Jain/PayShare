@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="nav">
+    <img src="assets/images/logo.svg" />
+    <p>PayShare</p>
+  </div>
+
+  <div class="overlay" [class.hidden]="isRemoved"></div>
+  <div class="modal-remove" [class.hidden]="isRemoved">
+    <p>Do you confirm the names?</p>
+    <div class="remove-btn">
+      <button (click)="confirm()">yes</button>
+      <button (click)="cancel()">no</button>
+    </div>
+  </div>
+
+  <div class="name-panel">
+    <div class="input-field"></div>
+    <div class="name-list"></div>
+  </div>
+
+  <div class="mt-32 flex flex-col">
+    <div class="border-2 border-[#e34432] rounded-lg mb-4">
+      <input class="text-lg p-1 outline-none rounded-lg" [(ngModel)]="name" (keydown.enter)="addName()" placeholder="Enter name" />
+      <button class="py-1 px-3 bg-[#e34432] font-semibold text-lg text-[#fefdfc]" (click)="addName()">Add</button>
+    </div>
+    <div *ngFor="let name of names; let i = index" class="flex justify-between mb-2">
+      <p class="font-medium text-lg ">{{i+1}}. {{ name }}</p>
+      <button (click)="removeName(i)" class="text-center bg-[#e34432] text-white px-2 py-1 text-lg font-medium rounded-lg">Remove</button>
+    </div>
+    <button class="text-center bg-[#e34432] text-white px-4 py-2 text-2xl font-semibold mx-auto my-4 rounded-xl" (click)="toggleRemove()">Submit</button>
+  </div>
+</div>
